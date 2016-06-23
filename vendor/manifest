@@ -87,6 +87,14 @@
 			"notests": true
 		},
 		{
+			"importpath": "google.golang.org/cloud/internal",
+			"repository": "https://code.googlesource.com/gocloud",
+			"revision": "313b870fb828e3eaeeb73b3529638435bfcf7324",
+			"branch": "master",
+			"path": "/internal",
+			"notests": true
+		},
+		{
 			"importpath": "google.golang.org/grpc",
 			"repository": "https://github.com/grpc/grpc-go",
 			"revision": "e78224b060cf3215247b7be455f80ea22e469b66",
