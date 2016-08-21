@@ -1,0 +1,10 @@
+SHELL=\bash
+
+MAKEFILE_DIR=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
+
+GIPFELI_VERSION=latest
+
+GIPFELI_DAEMON=gipfelid
+GIPFELI_GATEWAY=gipfeligw
+
+HUB_PREFIX=sctlee
