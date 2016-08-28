@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package sctlee.gipfeli.auth;
+
+service GipfeliAuthService {
+  rpc GetUserInfo(GetUserInfoRequest) returns (GetUserInfoResponse);
+}
+
+message GetUserInfoRequest {
+  string authorization = 1;
+}
+
+message GetUserInfoResponse {
+  string user_id = 1;
+  string user_name = 2;
+}
