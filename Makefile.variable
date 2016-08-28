@@ -6,5 +6,6 @@ GIPFELI_VERSION=latest
 
 GIPFELI_DAEMON=gipfelid
 GIPFELI_GATEWAY=gipfeligw
+GIPFELI_AUTH=gipfeliauth
 
 HUB_PREFIX=sctlee
