@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/sctlee/gipfeli/gateway/middleware"
 	"golang.org/x/net/websocket"
 )
 
@@ -105,6 +106,6 @@ func (self *Gateway) listen() {
 
 func Start(eventHandler EventHandler, port int) {
 	gateway := NewGateway(eventHandler)
-	gateway.RegisterMiddleware(hs)
+	gateway.RegisterMiddleware(middleware.GetUserInfo)
 	gateway.Run(port)
 }
