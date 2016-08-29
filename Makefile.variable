@@ -3,6 +3,7 @@ SHELL=\bash
 MAKEFILE_DIR=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
 GIPFELI_VERSION=latest
+GIPFELI_DIST=gipfeli_dist
 
 GIPFELI_DAEMON=gipfelid
 GIPFELI_GATEWAY=gipfeligw
