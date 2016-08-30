@@ -4,4 +4,4 @@ ADD . /go/src/github.com/sctlee/gipfeli
 
 RUN cd /go/src/github.com/sctlee/gipfeli && make binaries
 
-RUN mv /go/src/github.com/sctlee/gipfeli/bin /dist
+CMD mv /go/src/github.com/sctlee/gipfeli/bin/* /dist/

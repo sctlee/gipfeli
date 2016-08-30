@@ -5,24 +5,21 @@ print-%: ; @echo $*=$($*)
 COMMANDS=gipfeligw gipfeliauth
 # Project binaries.
 BINARIES=$(addprefix bin/,$(COMMANDS))
+DISTS=$(addprefix dist/,$(COMMANDS))
 
 # Project images
 IMAGES=$(addprefix sctlee/,$(COMMANDS))
 
 all: build images
 
-dist:
+build: clean
 	@echo "🐳 $@"
 	@docker build -t $(HUB_PREFIX)/$(GIPFELI_DIST) -f DockerfileBuild .
-
-build: clean dist
-	@echo "🐳 $@"
-	@docker run --name $(GIPFELI_DIST) $(HUB_PREFIX)/$(GIPFELI_DIST)
-	@docker cp $(GIPFELI_DIST):/dist dist
+	@mkdir dist && docker run --rm -v `pwd`/dist:/dist $(HUB_PREFIX)/$(GIPFELI_DIST)
 
 clean:
-	@echo "🐳 $@ ${BINARIES}"
-	@docker rm -vf $(GIPFELI_DIST)
+	@echo "🐳 $@"
+	@rm -rf dist bin
 
 FORCE:
 
@@ -34,9 +31,9 @@ bin/%: cmd/% FORCE
 binaries: $(BINARIES) ## build binaries
 	@echo "🐳 $@"
 
-sctlee/%: dist/% FORCE
+$(IMAGES): FORCE
 	@echo "🐳 $@"
-	@docker build -t $@ .
+	@docker build --build-arg component=$(notdir $@) -t $@ .
 
 images: $(IMAGES) ## build images
 	@echo "🐳 $@"
