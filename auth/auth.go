@@ -1,6 +1,7 @@
 package auth
 
 import (
+	"fmt"
 	"log"
 	"net"
 
@@ -8,9 +9,9 @@ import (
 	"google.golang.org/grpc"
 )
 
-// server is used to implement helloworld.GreeterServer.
 func Start(port int) {
-	lis, err := net.Listen("tcp", ":"+string(port))
+	address := fmt.Sprintf(":%d", port)
+	lis, err := net.Listen("tcp", address)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
