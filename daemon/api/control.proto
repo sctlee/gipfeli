@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package sctlee.gipfeli.daemon;
+
+service GipfeliRoomService {
+  rpc ListRooms(ListRoomsRequest) returns (ListRoomsResponse);
+}
+
+message ListRoomsRequest {
+}
+
+message ListRoomsResponse {
+  repeated Room room = 1;
+}
