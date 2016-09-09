@@ -1,6 +1,8 @@
 syntax = "proto3";
 
-package sctlee.gipfeli.daemon;
+package api;
+
+import "objects.proto";
 
 service GipfeliRoomService {
   rpc ListRooms(ListRoomsRequest) returns (ListRoomsResponse);

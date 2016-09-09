@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package sctlee.gipfeli.daemon;
+package api;
 
 message RoomSpec {
   string name = 1;
