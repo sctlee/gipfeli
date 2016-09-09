@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package sctlee.gipfeli.daemon;
+
+message UpdateStatus {
+	enum UpdateState {
+		UNKNOWN = 0;
+		UPDATING = 1;
+		PAUSED = 2;
+		COMPLETED = 3;
+	}
+
+	// State is the state of this update. It indicates whether the
+	// update is in progress, completed, or is paused.
+	UpdateState state = 1;
+
+	// StartedAt is the time at which the update was started.
+	Timestamp started_at = 2;
+
+	// CompletedAt is the time at which the update completed.
+	Timestamp completed_at = 3;
+	string message = 4;
+}
