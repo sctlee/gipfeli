@@ -6,11 +6,37 @@ import "objects.proto";
 
 service GipfeliRoomService {
   rpc ListRooms(ListRoomsRequest) returns (ListRoomsResponse);
+  rpc JoinRoom(JoinRoomsRequest) returns (JoinRoomsResponse);
+  rpc ExitRoom(ExitRoomsRequest) returns (ExitRoomsResponse);
+  rpc SendMsgToRoom(SendMsgToRoomRequest) returns SendMsgToRoomResponse);
 }
 
 message ListRoomsRequest {
+	message Filters {
+		repeated string names = 1;
+		repeated string ids = 2;
+		repeated string catalogs = 3;
+	}
+
+	Filters filters = 1;
 }
 
 message ListRoomsResponse {
   repeated Room room = 1;
+}
+
+message JoinRoomsRequest {
+  string room_id = 1;
+}
+
+message JoinRoomsResponse {
+  Room room = 1;
+}
+
+message ExitRoomsRequest {
+  string room_id = 1;
+}
+
+message ExitRoomsResponse {
+  Room room = 1;
 }
