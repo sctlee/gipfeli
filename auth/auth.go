@@ -9,7 +9,9 @@ import (
 	"google.golang.org/grpc"
 )
 
+// Start ...
 func Start(port int) {
+	fmt.Printf("Start listening on 0.0.0.0:%d", port)
 	address := fmt.Sprintf(":%d", port)
 	lis, err := net.Listen("tcp", address)
 	if err != nil {
