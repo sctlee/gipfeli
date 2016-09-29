@@ -1,0 +1,4 @@
+Auth Server
+--
+
+Run `protoc -I ./auth/api/ ./auth/api/auth.proto --go_out=plugins=grpc:auth`

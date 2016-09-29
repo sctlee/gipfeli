@@ -7,10 +7,10 @@ import (
 	"google.golang.org/grpc/codes"
 )
 
-// server is used to implement helloworld.GreeterServer.
+// Server ...
 type Server struct{}
 
-// SayHello implements helloworld.GreeterServer
+// GetUserInfo ...
 func (s *Server) GetUserInfo(ctx context.Context, in *api.GetUserInfoRequest) (*api.GetUserInfoResponse, error) {
 	if in.Authorization == "" {
 		return nil, grpc.Errorf(codes.InvalidArgument, "argument error: require access_token")
@@ -18,6 +18,7 @@ func (s *Server) GetUserInfo(ctx context.Context, in *api.GetUserInfoRequest) (*
 	return &api.GetUserInfoResponse{UserId: "123456", UserName: "sctlee"}, nil
 }
 
+// NewAuthServer ...
 func NewAuthServer() *Server {
 	return &Server{}
 }

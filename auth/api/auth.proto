@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package sctlee.gipfeli.auth;
+package api;
 
 service GipfeliAuthService {
   rpc GetUserInfo(GetUserInfoRequest) returns (GetUserInfoResponse);

@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package api;
+
+import "objects.proto";
+import "specs.proto";
+
+service GipfeliRoomService {
+  rpc ListRooms(ListRoomsRequest) returns (ListRoomsResponse);
+  rpc CreateRoom(CreateRoomRequest) returns (CreateRoomResponse);
+  rpc UpdateRoom(UpdateRoomRequest) returns (UpdateRoomResponse);
+  rpc DeleteRoom(DeleteRoomRequest) returns (DeleteRoomResponse);
+}
+
+message ListRoomsRequest {
+	message Filters {
+		repeated string names = 1;
+		repeated string ids = 2;
+		repeated string catalogs = 3;
+	}
+
+	Filters filters = 1;
+}
+
+message ListRoomsResponse {
+  repeated Room room = 1;
+}
+
+message CreateRoomRequest {
+  RoomSpec room_id = 1;
+}
+
+message CreateRoomResponse {
+  Room room = 1;
+}
+
+message UpdateRoomRequest {
+  RoomSpec room_id = 1;
+}
+
+message UpdateRoomResponse {
+  Room room = 1;
+}
+
+message DeleteRoomRequest {
+  RoomSpec room_id = 1;
+}
+
+message DeleteRoomResponse {
+  Room room = 1;
+}
