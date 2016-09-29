@@ -2,11 +2,14 @@ include Makefile.variable
 
 print-%: ; @echo $*=$($*)
 
-COMMANDS=gipfeligw gipfeliauth
+COMMANDS=gipfeligw gipfeliauth gipfelid
 PROTOS=auth daemon
+
 # Project binaries.
 BINARIES=$(addprefix bin/,$(COMMANDS))
 DISTS=$(addprefix dist/,$(COMMANDS))
+
+# Project protobufs
 APIS=$(addsuffix /api,$(PROTOS))
 
 # Project images
@@ -42,11 +45,16 @@ $(IMAGES): FORCE
 images: build $(IMAGES)
 	@echo "🐳 $@"
 
+# generate protobuf
+setup_protobuf:
+	@echo "🐳 $@"
+	@protoc --proto_path=protobuf --go_out=plugins=grpc:protobuf  protobuf/plugin/*.proto
+
 $(APIS): FORCE
 	@echo "🐳 $@"
-	@protoc --proto_path=$@ --go_out=plugins=grpc:$@  $@/*.proto
+	@protoc --proto_path=$@ --proto_path=protobuf --go_out=plugins=grpc:$@  $@/*.proto
 
-generate: $(APIS)
+generate: setup_protobuf $(APIS)
 	@echo "🐳 $@"
 
 release:
