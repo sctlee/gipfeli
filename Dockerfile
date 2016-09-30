@@ -1,7 +1,9 @@
-FROM daocloud.io/library/golang:1.7.0-wheezy
+FROM golang:1.7.1-alpine
 
 ARG component
 
 COPY dist/$component bin/$component
 
-CMD bin/$component
+ENV component $component
+
+ENTRYPOINT /go/bin/$component

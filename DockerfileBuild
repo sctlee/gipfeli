@@ -1,7 +1,17 @@
-FROM daocloud.io/library/golang:1.7.0-wheezy
+FROM golang:1.7.1-alpine
+
+RUN apk update && apk add build-base git bash
+
+RUN mkdir -p /go/src/github.com/sctlee/gipfeli
+
+WORKDIR /go/src/github.com/sctlee/gipfeli
+
+ADD vendor /go/src/github.com/sctlee/gipfeli/vendor
+
+RUN go get -u github.com/FiloSottile/gvt && gvt restore
 
 ADD . /go/src/github.com/sctlee/gipfeli
 
-RUN cd /go/src/github.com/sctlee/gipfeli && make binaries
+RUN make binaries
 
 CMD mv /go/src/github.com/sctlee/gipfeli/bin/* /dist/

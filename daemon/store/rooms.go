@@ -2,7 +2,6 @@ package store
 
 import (
 	"encoding/json"
-	"fmt"
 
 	"github.com/sctlee/gipfeli/daemon/api"
 )
@@ -40,7 +39,6 @@ func (r roomEntry) JSONData() (string, error) {
 
 func (r roomEntry) SetContent(jsonData string) error {
 	err := json.Unmarshal([]byte(jsonData), r.Room)
-	fmt.Println("ttttt", r.Room)
 	return err
 }
 
