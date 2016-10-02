@@ -4,12 +4,32 @@ package api;
 
 import "objects.proto";
 import "specs.proto";
+import "google/api/annotations.proto";
 
 service GipfeliRoomService {
-  rpc ListRooms(ListRoomsRequest) returns (ListRoomsResponse);
-  rpc CreateRoom(CreateRoomRequest) returns (CreateRoomResponse);
-  rpc UpdateRoom(UpdateRoomRequest) returns (UpdateRoomResponse);
-  rpc DeleteRoom(DeleteRoomRequest) returns (DeleteRoomResponse);
+  rpc ListRooms(ListRoomsRequest) returns (ListRoomsResponse) {
+    option (google.api.http) = {
+      get: "/v1/daemon/rooms"
+    };
+  };
+  rpc CreateRoom(CreateRoomRequest) returns (CreateRoomResponse) {
+    option (google.api.http) = {
+      post: "/v1/daemon/room"
+      body: "*"
+    };
+
+  };
+  rpc UpdateRoom(UpdateRoomRequest) returns (UpdateRoomResponse) {
+    option (google.api.http) = {
+      put: "/v1/daemon/room/{room_id}"
+      body: "*"
+    };
+  };
+  rpc DeleteRoom(DeleteRoomRequest) returns (DeleteRoomResponse) {
+    option (google.api.http) = {
+      delete: "/v1/daemon/room/{room_id}"
+    };
+  }
 }
 
 message ListRoomsRequest {
@@ -27,7 +47,7 @@ message ListRoomsResponse {
 }
 
 message CreateRoomRequest {
-  RoomSpec room_id = 1;
+  RoomSpec room_spec = 1;
 }
 
 message CreateRoomResponse {
@@ -35,7 +55,8 @@ message CreateRoomResponse {
 }
 
 message UpdateRoomRequest {
-  RoomSpec room_id = 1;
+  string room_id = 1;
+  RoomSpec room_spec = 2;
 }
 
 message UpdateRoomResponse {
@@ -43,7 +64,7 @@ message UpdateRoomResponse {
 }
 
 message DeleteRoomRequest {
-  RoomSpec room_id = 1;
+  string room_id = 1;
 }
 
 message DeleteRoomResponse {
