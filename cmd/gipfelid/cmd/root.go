@@ -32,7 +32,7 @@ var RootCmd = &cobra.Command{
 	Short: "a daemon for managing all gipfeli rooms.",
 	Long:  `Gipfelid is a daemon for managing all gipfeli rooms.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		daemon.Start(5200)
+		daemon.Start(9020)
 	},
 }
 
