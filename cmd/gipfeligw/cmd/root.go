@@ -18,7 +18,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/sctlee/gipfeli/daemon"
+	"github.com/sctlee/gipfeli/gateway"
 
 	"github.com/Sirupsen/logrus"
 	"github.com/spf13/cobra"
@@ -29,9 +29,9 @@ var cfgFile string
 
 // RootCmd represents the base command when called without any subcommands
 var RootCmd = &cobra.Command{
-	Use:   "gipfelid",
-	Short: "A daemon for managing all gipfeli rooms.",
-	Long:  `Gipfelid is a daemon for managing all gipfeli rooms.`,
+	Use:   "gipfeligw",
+	Short: "A gateway for all gipfeli services.",
+	Long:  `Gipfeligw is a gateway for all gipfeli services.`,
 	PersistentPreRun: func(cmd *cobra.Command, _ []string) {
 		logrus.SetOutput(os.Stderr)
 		isDebug, err := cmd.Flags().GetBool("debug")
@@ -42,8 +42,10 @@ var RootCmd = &cobra.Command{
 			logrus.SetLevel(logrus.DebugLevel)
 		}
 	},
+	// Uncomment the following line if your bare application
+	// has an action associated with it:
 	Run: func(cmd *cobra.Command, args []string) {
-		daemon.Start(9020)
+		gateway.Start(9010)
 	},
 }
 
@@ -63,9 +65,10 @@ func init() {
 	// Cobra supports Persistent Flags, which, if defined here,
 	// will be global for your application.
 
-	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.gipfelid.yaml)")
+	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.gipfeligw.yaml)")
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
+	RootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 	RootCmd.Flags().BoolP("debug", "d", false, "Open debug mode")
 }
 
@@ -75,9 +78,9 @@ func initConfig() {
 		viper.SetConfigFile(cfgFile)
 	}
 
-	viper.SetConfigName(".gipfelid") // name of config file (without extension)
-	viper.AddConfigPath("$HOME")     // adding home directory as first search path
-	viper.AutomaticEnv()             // read in environment variables that match
+	viper.SetConfigName(".gipfeligw") // name of config file (without extension)
+	viper.AddConfigPath("$HOME")      // adding home directory as first search path
+	viper.AutomaticEnv()              // read in environment variables that match
 
 	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err == nil {
