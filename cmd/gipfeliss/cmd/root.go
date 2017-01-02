@@ -1,4 +1,4 @@
-// Copyright © 2016 NAME HERE <EMAIL ADDRESS>
+// Copyright © 2017 NAME HERE <EMAIL ADDRESS>
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,9 +18,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/sctlee/gipfeli/gateway"
-
 	"github.com/Sirupsen/logrus"
+	"github.com/sctlee/gipfeli/stream"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -29,9 +28,9 @@ var cfgFile string
 
 // RootCmd represents the base command when called without any subcommands
 var RootCmd = &cobra.Command{
-	Use:   "gipfeligw",
-	Short: "A gateway for all gipfeli services.",
-	Long:  `Gipfeligw is a gateway for all gipfeli services.`,
+	Use:   "gipfelis",
+	Short: "A stream server for gipfeli.",
+	Long:  `Gipfeliss is a stream server for gipfeli.`,
 	PersistentPreRun: func(cmd *cobra.Command, _ []string) {
 		logrus.SetOutput(os.Stderr)
 		isDebug, err := cmd.Flags().GetBool("debug")
@@ -45,7 +44,7 @@ var RootCmd = &cobra.Command{
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	Run: func(cmd *cobra.Command, args []string) {
-		gateway.Start(9000)
+		stream.Start(9010)
 	},
 }
 
@@ -65,11 +64,10 @@ func init() {
 	// Cobra supports Persistent Flags, which, if defined here,
 	// will be global for your application.
 
-	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.gipfeligw.yaml)")
+	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.gipfelis.yaml)")
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
 	RootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-	RootCmd.Flags().BoolP("debug", "d", false, "Open debug mode")
 }
 
 // initConfig reads in config file and ENV variables if set.
@@ -78,9 +76,9 @@ func initConfig() {
 		viper.SetConfigFile(cfgFile)
 	}
 
-	viper.SetConfigName(".gipfeligw") // name of config file (without extension)
-	viper.AddConfigPath("$HOME")      // adding home directory as first search path
-	viper.AutomaticEnv()              // read in environment variables that match
+	viper.SetConfigName(".gipfelis") // name of config file (without extension)
+	viper.AddConfigPath("$HOME")     // adding home directory as first search path
+	viper.AutomaticEnv()             // read in environment variables that match
 
 	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err == nil {

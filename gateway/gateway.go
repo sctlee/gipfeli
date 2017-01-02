@@ -7,6 +7,7 @@ import (
 	auth_gw "github.com/sctlee/gipfeli/auth/api"
 	daemon_gw "github.com/sctlee/gipfeli/daemon/api"
 
+	log "github.com/Sirupsen/logrus"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -29,7 +30,7 @@ func Start(port int) {
 		fmt.Println(err)
 	}
 
-	fmt.Printf("Start listening on 0.0.0.0:%d", port)
+	log.Infof("Start listening on 0.0.0.0:%d...\n", port)
 	address := fmt.Sprintf(":%d", port)
 	http.ListenAndServe(address, mux)
 

@@ -3,7 +3,7 @@ package websocket
 import (
 	"log"
 
-	"github.com/sctlee/gipfeli/gateway/middleware/auth"
+	"github.com/sctlee/gipfeli/stream/middleware/auth"
 	// "github.com/gorilla/mux"
 )
 
