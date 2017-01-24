@@ -2,7 +2,7 @@ include Makefile.variable
 
 print-%: ; @echo $*=$($*)
 
-COMMANDS=gipfeligw gipfeliauth gipfelid gipfeliss
+COMMANDS=gipfeli-gw gipfeli-auth gipfelid gipfeli-stream
 PROTOS=auth daemon
 
 # Project binaries.
@@ -49,19 +49,12 @@ images: build $(IMAGES)
 # setup_protobuf:
 # 	@echo "🥐 $@"
 # 	@protoc --proto_path=protobuf --go_out=plugins=grpc:protobuf  protobuf/plugin/*.proto
-
-GPRC_PROTO_PATH=${HOME}/Codes/Tools/protoc-3/include
-GRPC_GATEWAY_PROTO_PATH=${HOME}/Codes/GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis
-
 $(APIS): FORCE
 	@echo "🥐 $@"
-	@protoc --proto_path=$@ --proto_path=${GRPC_GATEWAY_PROTO_PATH} --proto_path=${GPRC_PROTO_PATH} \
-	--go_out=Mgoogle/api/annotations.proto=github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis/google/api,plugins=grpc:$@  $@/*.proto
-	@protoc --proto_path=$@ --proto_path=${GRPC_GATEWAY_PROTO_PATH} --proto_path=${GPRC_PROTO_PATH} \
-	--grpc-gateway_out=logtostderr=true:$@  $@/*.proto
+	@docker run --rm -v `pwd`/$@:/protoc_dir $(HUB_PREFIX)/protoc-gateway-tool >> /dev/nul
 
 generate: $(APIS)
-	@echo "🥐 $@"
+	@echo "🥐 $@ finished"
 
 release:
 	@echo "developing..."

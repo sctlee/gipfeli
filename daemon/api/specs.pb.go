@@ -23,6 +23,20 @@ func (m *RoomSpec) String() string            { return proto.CompactTextString(m
 func (*RoomSpec) ProtoMessage()               {}
 func (*RoomSpec) Descriptor() ([]byte, []int) { return fileDescriptor2, []int{0} }
 
+func (m *RoomSpec) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *RoomSpec) GetCatalog() string {
+	if m != nil {
+		return m.Catalog
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterType((*RoomSpec)(nil), "api.RoomSpec")
 }

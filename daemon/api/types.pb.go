@@ -52,6 +52,20 @@ func (m *UpdateStatus) String() string            { return proto.CompactTextStri
 func (*UpdateStatus) ProtoMessage()               {}
 func (*UpdateStatus) Descriptor() ([]byte, []int) { return fileDescriptor3, []int{0} }
 
+func (m *UpdateStatus) GetState() UpdateStatus_UpdateState {
+	if m != nil {
+		return m.State
+	}
+	return UpdateStatus_UNKNOWN
+}
+
+func (m *UpdateStatus) GetMessage() string {
+	if m != nil {
+		return m.Message
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterType((*UpdateStatus)(nil), "api.UpdateStatus")
 	proto.RegisterEnum("api.UpdateStatus_UpdateState", UpdateStatus_UpdateState_name, UpdateStatus_UpdateState_value)

@@ -44,6 +44,13 @@ func (m *GetUserInfoRequest) String() string            { return proto.CompactTe
 func (*GetUserInfoRequest) ProtoMessage()               {}
 func (*GetUserInfoRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
 
+func (m *GetUserInfoRequest) GetAuthorization() string {
+	if m != nil {
+		return m.Authorization
+	}
+	return ""
+}
+
 type GetUserInfoResponse struct {
 	UserId   string `protobuf:"bytes,1,opt,name=user_id,json=userId" json:"user_id,omitempty"`
 	UserName string `protobuf:"bytes,2,opt,name=user_name,json=userName" json:"user_name,omitempty"`
@@ -53,6 +60,20 @@ func (m *GetUserInfoResponse) Reset()                    { *m = GetUserInfoRespo
 func (m *GetUserInfoResponse) String() string            { return proto.CompactTextString(m) }
 func (*GetUserInfoResponse) ProtoMessage()               {}
 func (*GetUserInfoResponse) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{1} }
+
+func (m *GetUserInfoResponse) GetUserId() string {
+	if m != nil {
+		return m.UserId
+	}
+	return ""
+}
+
+func (m *GetUserInfoResponse) GetUserName() string {
+	if m != nil {
+		return m.UserName
+	}
+	return ""
+}
 
 func init() {
 	proto.RegisterType((*GetUserInfoRequest)(nil), "api.GetUserInfoRequest")
@@ -65,7 +86,7 @@ var _ grpc.ClientConn
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
-const _ = grpc.SupportPackageIsVersion3
+const _ = grpc.SupportPackageIsVersion4
 
 // Client API for GipfeliAuthService service
 
@@ -128,7 +149,7 @@ var _GipfeliAuthService_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: fileDescriptor0,
+	Metadata: "auth.proto",
 }
 
 func init() { proto.RegisterFile("auth.proto", fileDescriptor0) }
