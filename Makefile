@@ -2,7 +2,7 @@ include Makefile.variable
 
 print-%: ; @echo $*=$($*)
 
-COMMANDS=gipfeli-gw gipfeli-auth gipfelid gipfeli-stream
+COMMANDS=gipfeligw gipfeliauth gipfelid gipfelis
 PROTOS=auth daemon
 
 # Project binaries.

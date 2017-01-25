@@ -2,6 +2,7 @@ package websocket
 
 import (
 	"fmt"
+
 	ws "golang.org/x/net/websocket"
 )
 

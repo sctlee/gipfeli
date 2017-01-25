@@ -33,5 +33,4 @@ func Start(port int) {
 	log.Infof("Start listening on 0.0.0.0:%d...\n", port)
 	address := fmt.Sprintf(":%d", port)
 	http.ListenAndServe(address, mux)
-
 }
