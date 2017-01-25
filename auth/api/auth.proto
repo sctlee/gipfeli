@@ -7,8 +7,7 @@ import "google/api/annotations.proto";
 service GipfeliAuthService {
   rpc GetUserInfo(GetUserInfoRequest) returns (GetUserInfoResponse) {
     option (google.api.http) = {
-      post: "/v1/auth"
-      body: "*"
+      get: "/v1/auth"
     };
   }
 }

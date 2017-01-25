@@ -2,7 +2,7 @@ include Makefile.variable
 
 print-%: ; @echo $*=$($*)
 
-COMMANDS=gipfeligw gipfeliauth gipfelid
+COMMANDS=gipfeligw gipfeliauth gipfelid gipfelis
 PROTOS=auth daemon
 
 # Project binaries.
@@ -18,50 +18,43 @@ IMAGES=$(addprefix sctlee/,$(COMMANDS))
 all: images
 
 build: clean
-	@echo "🐳 $@"
+	@echo "🥐 $@"
 	@docker build -t $(HUB_PREFIX)/$(GIPFELI_DIST) -f DockerfileBuild .
 	@mkdir dist && docker run --rm -v `pwd`/dist:/dist $(HUB_PREFIX)/$(GIPFELI_DIST)
 
 clean:
-	@echo "🐳 $@"
+	@echo "🥐 $@"
 	@rm -rf dist bin
 
 FORCE:
 
 # Build a binary from a cmd.
 bin/%: cmd/% FORCE
-	@echo "🐳 $@"
+	@echo "🥐 $@"
 	@go build -i -tags "${DOCKER_BUILDTAGS}" -o $@ ${GO_LDFLAGS}  ${GO_GCFLAGS} ./$<
 
 ## build binaries
 binaries: $(BINARIES)
-	@echo "🐳 $@"
+	@echo "🥐 $@"
 
 $(IMAGES): FORCE
-	@echo "🐳 $@"
+	@echo "🥐 $@"
 	@docker build --build-arg component=$(notdir $@) -t $@ .
 
 ## build images
 images: build $(IMAGES)
-	@echo "🐳 $@"
+	@echo "🥐 $@"
 
 # generate protobuf
 # setup_protobuf:
-# 	@echo "🐳 $@"
+# 	@echo "🥐 $@"
 # 	@protoc --proto_path=protobuf --go_out=plugins=grpc:protobuf  protobuf/plugin/*.proto
-
-GPRC_PROTO_PATH=${HOME}/Codes/Tools/protoc-3/include
-GRPC_GATEWAY_PROTO_PATH=${HOME}/Codes/GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis
-
 $(APIS): FORCE
-	@echo "🐳 $@"
-	@protoc --proto_path=$@ --proto_path=${GRPC_GATEWAY_PROTO_PATH} --proto_path=${GPRC_PROTO_PATH} \
-	--go_out=Mgoogle/api/annotations.proto=github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis/google/api,plugins=grpc:$@  $@/*.proto
-	@protoc --proto_path=$@ --proto_path=${GRPC_GATEWAY_PROTO_PATH} --proto_path=${GPRC_PROTO_PATH} \
-	--grpc-gateway_out=logtostderr=true:$@  $@/*.proto
+	@echo "🥐 $@"
+	@docker run --rm -v `pwd`/$@:/protoc_dir $(HUB_PREFIX)/protoc-gateway-tool >> /dev/nul
 
 generate: $(APIS)
-	@echo "🐳 $@"
+	@echo "🥐 $@ finished"
 
 release:
 	@echo "developing..."

@@ -20,6 +20,7 @@ import (
 
 	"github.com/sctlee/gipfeli/daemon"
 
+	"github.com/Sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -29,8 +30,18 @@ var cfgFile string
 // RootCmd represents the base command when called without any subcommands
 var RootCmd = &cobra.Command{
 	Use:   "gipfelid",
-	Short: "a daemon for managing all gipfeli rooms.",
+	Short: "A daemon for managing all gipfeli rooms.",
 	Long:  `Gipfelid is a daemon for managing all gipfeli rooms.`,
+	PersistentPreRun: func(cmd *cobra.Command, _ []string) {
+		logrus.SetOutput(os.Stderr)
+		isDebug, err := cmd.Flags().GetBool("debug")
+		if err != nil {
+			logrus.Fatal(err)
+		}
+		if isDebug {
+			logrus.SetLevel(logrus.DebugLevel)
+		}
+	},
 	Run: func(cmd *cobra.Command, args []string) {
 		daemon.Start(9020)
 	},
@@ -55,7 +66,7 @@ func init() {
 	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.gipfelid.yaml)")
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
-	RootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	RootCmd.Flags().BoolP("debug", "d", false, "Open debug mode")
 }
 
 // initConfig reads in config file and ENV variables if set.

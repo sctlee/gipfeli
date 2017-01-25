@@ -74,6 +74,27 @@ func (m *ListRoomsRequest_Filters) String() string            { return proto.Com
 func (*ListRoomsRequest_Filters) ProtoMessage()               {}
 func (*ListRoomsRequest_Filters) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0, 0} }
 
+func (m *ListRoomsRequest_Filters) GetNames() []string {
+	if m != nil {
+		return m.Names
+	}
+	return nil
+}
+
+func (m *ListRoomsRequest_Filters) GetIds() []string {
+	if m != nil {
+		return m.Ids
+	}
+	return nil
+}
+
+func (m *ListRoomsRequest_Filters) GetCatalogs() []string {
+	if m != nil {
+		return m.Catalogs
+	}
+	return nil
+}
+
 type ListRoomsResponse struct {
 	Room []*Room `protobuf:"bytes,1,rep,name=room" json:"room,omitempty"`
 }
@@ -132,6 +153,13 @@ func (m *UpdateRoomRequest) String() string            { return proto.CompactTex
 func (*UpdateRoomRequest) ProtoMessage()               {}
 func (*UpdateRoomRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{4} }
 
+func (m *UpdateRoomRequest) GetRoomId() string {
+	if m != nil {
+		return m.RoomId
+	}
+	return ""
+}
+
 func (m *UpdateRoomRequest) GetRoomSpec() *RoomSpec {
 	if m != nil {
 		return m.RoomSpec
@@ -163,6 +191,13 @@ func (m *DeleteRoomRequest) Reset()                    { *m = DeleteRoomRequest{
 func (m *DeleteRoomRequest) String() string            { return proto.CompactTextString(m) }
 func (*DeleteRoomRequest) ProtoMessage()               {}
 func (*DeleteRoomRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{6} }
+
+func (m *DeleteRoomRequest) GetRoomId() string {
+	if m != nil {
+		return m.RoomId
+	}
+	return ""
+}
 
 type DeleteRoomResponse struct {
 	Room *Room `protobuf:"bytes,1,opt,name=room" json:"room,omitempty"`
@@ -198,7 +233,7 @@ var _ grpc.ClientConn
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
-const _ = grpc.SupportPackageIsVersion3
+const _ = grpc.SupportPackageIsVersion4
 
 // Client API for GipfeliRoomService service
 
@@ -360,7 +395,7 @@ var _GipfeliRoomService_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: fileDescriptor0,
+	Metadata: "control.proto",
 }
 
 func init() { proto.RegisterFile("control.proto", fileDescriptor0) }

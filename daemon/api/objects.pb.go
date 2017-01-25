@@ -24,6 +24,13 @@ func (m *Room) String() string            { return proto.CompactTextString(m) }
 func (*Room) ProtoMessage()               {}
 func (*Room) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{0} }
 
+func (m *Room) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
 func (m *Room) GetSpec() *RoomSpec {
 	if m != nil {
 		return m.Spec
