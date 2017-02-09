@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package api;
+
+import "types.proto";
+import "specs.proto";
+
+message Room {
+  string id = 1;
+  RoomSpec spec = 2;
+  UpdateStatus update_status = 3;
+}

@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package api;
+
+import "google/api/annotations.proto";
+
+service GipfeliAuthService {
+  rpc GetUserInfo(GetUserInfoRequest) returns (GetUserInfoResponse) {
+    option (google.api.http) = {
+      get: "/v1/auth"
+    };
+  }
+}
+
+message GetUserInfoRequest {
+  string authorization = 1;
+}
+
+message GetUserInfoResponse {
+  string user_id = 1;
+  string user_name = 2;
+}
